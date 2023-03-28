@@ -28,7 +28,7 @@ namespace EmoloyeePayrollSevice
             
             while (true)
             {
-                Console.Write("1.Add Date\n2.get all data\nEnter a choice: ");
+                Console.Write("1.Add Date\n2.get all data\n3.Delete contact\nEnter a choice: ");
                 int choice = Convert.ToInt32(Console.ReadLine());
                 switch (choice)
                 {
@@ -37,6 +37,9 @@ namespace EmoloyeePayrollSevice
                         break;
                     case 2:
                         emoployeesPayroll.GetAllData();
+                        break;
+                    case 3:
+                        emoployeesPayroll.DeleteData("Abhijeet");
                         break;
                 }
             }

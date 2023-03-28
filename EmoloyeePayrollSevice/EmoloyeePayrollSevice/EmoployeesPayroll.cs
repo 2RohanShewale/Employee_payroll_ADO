@@ -50,6 +50,8 @@ namespace EmoloyeePayrollSevice
             SqlConnection connection = new SqlConnection(connectionString);
            
                 List<EmployeeModel> employees = new List<EmployeeModel>();
+            try
+            {
                 using (connection)
                 {
                     connection.Open();
@@ -87,9 +89,40 @@ namespace EmoloyeePayrollSevice
                         Console.WriteLine();
                         Console.WriteLine("NO Data in table");
                     }
-                        
+
                 }
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
            
+        }
+        public void DeleteData(string name)
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+            try
+            {
+                using (connection)
+                {
+                    connection.Open();
+                    SqlCommand sqlCommand = new SqlCommand("SpDeleteEmployee", connection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.Parameters.AddWithValue("@Name",name);
+
+                    int result = sqlCommand.ExecuteNonQuery();
+                    connection.Close();
+                    if (result >= 1)
+                    {
+                        Console.WriteLine("employee data deleted");
+                    }
+                    else
+                        Console.WriteLine("Error");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }
