@@ -24,11 +24,17 @@ namespace EmoloyeePayrollSevice
                 IncomeTax = 0,
                 NetPay = 0
             };
+            EmployeeModel updateEmployee = new EmployeeModel()
+            {
+                Name = "Abhijeet",
+                Address = "Pune",
+                
+            };
             EmoployeesPayroll emoployeesPayroll = new EmoployeesPayroll();
             
             while (true)
             {
-                Console.Write("1.Add Date\n2.get all data\n3.Delete contact\nEnter a choice: ");
+                Console.Write("1.Add Date\n2.get all data\n3.Delete contact\n4.Update Contact\nEnter a choice: ");
                 int choice = Convert.ToInt32(Console.ReadLine());
                 switch (choice)
                 {
@@ -40,6 +46,9 @@ namespace EmoloyeePayrollSevice
                         break;
                     case 3:
                         emoployeesPayroll.DeleteData("Abhijeet");
+                        break;
+                    case 4:
+                        emoployeesPayroll.UpdateDate(updateEmployee);
                         break;
                 }
             }

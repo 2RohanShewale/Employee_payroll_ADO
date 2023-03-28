@@ -124,5 +124,33 @@ namespace EmoloyeePayrollSevice
                 Console.WriteLine(ex.Message);
             }
         }
+        public void UpdateDate(EmployeeModel employee)
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+            try
+            {
+                using (connection)
+                {
+                    connection.Open();
+                    SqlCommand sqlCommand = new SqlCommand("SpUpdateEmployee", connection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.Parameters.AddWithValue("@Name", employee.Name);
+                    sqlCommand.Parameters.AddWithValue("@Address",employee.Address);
+
+                    int result = sqlCommand.ExecuteNonQuery();
+                    connection.Close();
+                    if (result >= 1)
+                    {
+                        Console.WriteLine("Update successful");
+                    }
+                    else
+                        Console.WriteLine("Error");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
     }
 }
