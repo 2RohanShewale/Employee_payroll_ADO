@@ -25,7 +25,21 @@ namespace EmoloyeePayrollSevice
                 NetPay = 0
             };
             EmoployeesPayroll emoployeesPayroll = new EmoployeesPayroll();
-            emoployeesPayroll.AddData(employee);
+            
+            while (true)
+            {
+                Console.Write("1.Add Date\n2.get all data\nEnter a choice: ");
+                int choice = Convert.ToInt32(Console.ReadLine());
+                switch (choice)
+                {
+                    case 1:
+                        emoployeesPayroll.AddData(employee);
+                        break;
+                    case 2:
+                        emoployeesPayroll.GetAllData();
+                        break;
+                }
+            }
             Console.ReadKey();
         }
     }

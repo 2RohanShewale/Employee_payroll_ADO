@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -43,6 +44,52 @@ namespace EmoloyeePayrollSevice
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+        public void GetAllData()
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+           
+                List<EmployeeModel> employees = new List<EmployeeModel>();
+                using (connection)
+                {
+                    connection.Open();
+                    SqlCommand sqlCommand = new SqlCommand("SpGetAllData", connection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader reader = sqlCommand.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            EmployeeModel employee = new EmployeeModel();
+                            employee.Name = reader.GetString(0);
+                            employee.BasicPay = (float)reader.GetDouble(1);
+                            employee.Startdate = reader.GetDateTime(2);
+                            employee.Gender = reader.GetString(3)[0];
+                            employee.Address = reader.GetString(4);
+                            employee.PhoneNumber = reader.GetInt64(5);
+                            employee.Department = reader.GetString(6);
+                            employee.Deduction = (float)reader.GetDouble(7);
+                            employee.TaxablePay = (float)reader.GetDouble(8);
+                            employee.IncomeTax = (float)reader.GetDouble(9);
+                            employee.NetPay = (float)reader.GetDouble(10);
+                            employees.Add(employee);
+                        }
+                        foreach (var employee in employees)
+                        {
+                            Console.WriteLine();
+                            Console.WriteLine($"{employee.Name} salary: {employee.BasicPay} Startdate: {employee.Startdate}");
+                        }
+
+                    }
+                    else
+                    {
+                        Console.WriteLine();
+                        Console.WriteLine("NO Data in table");
+                    }
+                        
+                }
+           
         }
     }
 }
